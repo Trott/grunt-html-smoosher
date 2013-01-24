@@ -1,0 +1,43 @@
+{
+  "name": "grunt-html-smoosher",
+  "description": "A grunt task which takes a html file, finds all the css and js links, and outputs a version with all the css and js written inline for ease of pasting into a cms",
+  "version": "0.1.0",
+  "homepage": "https://github.com/motherjones/grunt-html-smoosher",
+  "author": {
+    "name": "Ben Breedlove",
+    "email": "benbreedlove@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/motherjones/grunt-html-smoosher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/motherjones/grunt-html-smoosher/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/motherjones/grunt-html-smoosher/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies" : {
+    "jsdom": "~0.3.4",
+    "grunt-lib-contrib": "~0.3.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.1.1rc5",
+    "grunt-contrib-clean": "~0.4.0rc5",
+    "grunt-contrib-nodeunit": "~0.1.2rc5",
+    "grunt": "~0.4.0rc5"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
