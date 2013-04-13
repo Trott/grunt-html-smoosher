@@ -30,18 +30,9 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     smoosher: {
-      single: {
-        options: {
-        },
+      default_options: {
         files: {
-          'tmp/default_options': ['test/fixtures/testing'],
-        },
-      },
-      two_please: {
-        options: {
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
+          'tmp/default_options': 'test/fixtures/index.html',
         },
       },
     },
