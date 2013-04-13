@@ -34,14 +34,14 @@ module.exports = function(grunt) {
         options: {
         },
         files: {
-          'tmp/default_options': ['test/fixtures/testing'],
+          'tmp/default_options': ['test/fixtures/index.html'],
         },
       },
       two_please: {
         options: {
         },
         files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
+          'tmp/custom_options': ['test/fixtures/index.html'],
         },
       },
     },
