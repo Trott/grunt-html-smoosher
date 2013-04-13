@@ -10,9 +10,6 @@
 
 module.exports = function(grunt) {
 
-  // Please see the grunt documentation for more information regarding task
-  // creation: https://github.com/gruntjs/grunt/blob/devel/docs/toc.md
-
   grunt.registerMultiTask('smoosher', 'Turn your distribution into something pastable.', function() {
     var done = this.async();
     // Merge task-specific and/or target-specific options with these defaults.
