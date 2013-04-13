@@ -37,13 +37,6 @@ module.exports = function(grunt) {
           'tmp/default_options': ['test/fixtures/index.html'],
         },
       },
-      two_please: {
-        options: {
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/index.html'],
-        },
-      },
     },
 
     // Unit tests.

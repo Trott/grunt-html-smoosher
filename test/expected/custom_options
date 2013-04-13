@@ -1,8 +1,0 @@
-<body><h1>things and stuff</h1>
-<script type="text/javascript">alert('lol i am test js, really');
-</script>
-<style type="text/css">h1 {
-  color: red;
-}
-</style>
-</body><script class="jsdom" src="http://code.jquery.com/jquery.js"></script>
