@@ -13,8 +13,6 @@ module.exports = function(grunt) {
     // Please see the grunt documentation for more information regarding task
     // creation: https://github.com/gruntjs/grunt/blob/devel/docs/toc.md
 
-    var helpers = require('grunt-lib-contrib').init(grunt);
-
     grunt.registerMultiTask('smoosher', 'Turn your distribution into something pastable.', function() {
         var done = this.async();
         // Merge task-specific and/or target-specific options with these defaults.
@@ -40,44 +38,25 @@ module.exports = function(grunt) {
                 nextFileObj();
             }
 
-            // hack by chris to support compiling individual files
-            if (helpers.isIndividualDest(destFile)) {
-                var basePath = helpers.findBasePath(files, options.basePath);
-                grunt.util.async.forEachSeries(files, function(file, next) {
-                    var newFileDest = helpers.buildIndividualDest(destFile, file, basePath, options.flatten);
-                    smoosh(file, options, function(snippet, err) {
-                        if (!err) {
-                            grunt.file.write(newFileDest, snippet || '');
-                            grunt.log.writeln('File ' + newFileDest.cyan + ' created.');
-                            next(null);
-                        } else {
-                            nextFileObj(false);
-                        }
-                    });
-                }, nextFileObj);
-            } else {
-                // normal execution
-                var compiled = [];
-                grunt.util.async.concatSeries(files, function(file, next) {
-                    smoosh(file, options, function(snippet, err) {
-                        if (!err) {
-                            compiled.push(snippet);
-                            next(null);
-                        } else {
-                            nextFileObj(false);
-                        }
-                    });
-                }, function() {
-                    if (compiled.length < 1) {
-                        grunt.log.warn('Destination not written because compiled files were empty.');
+            var compiled = [];
+            grunt.util.async.concatSeries(files, function(file, next) {
+                smoosh(file, options, function(snippet, err) {
+                    if (!err) {
+                        compiled.push(snippet);
+                        next(null);
                     } else {
-                        grunt.file.write(destFile, compiled.join(grunt.util.normalizelf(grunt.util.linefeed)));
-                        grunt.log.writeln('File ' + destFile.cyan + ' created.');
+                        nextFileObj(false);
                     }
-                    nextFileObj();
                 });
-            }
-
+            }, function() {
+                if (compiled.length < 1) {
+                    grunt.log.warn('Destination not written because compiled files were empty.');
+                } else {
+                    grunt.file.write(destFile, compiled.join(grunt.util.normalizelf(grunt.util.linefeed)));
+                    grunt.log.writeln('File ' + destFile.cyan + ' created.');
+                }
+                nextFileObj();
+            });
         }, done);
 
 

@@ -28,8 +28,7 @@
     "test": "grunt test"
   },
   "dependencies" : {
-    "jsdom": "~0.5.6",
-    "grunt-lib-contrib": "~0.6.1"
+    "jsdom": "~0.5.6"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.4.3",
