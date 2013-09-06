@@ -27,8 +27,10 @@ In your project's Gruntfile, add a section named `smoosher` to the data object p
 ```js
 grunt.initConfig({
   smoosher: {
-    files: {
+    all: {
+      files: {
         'dest-index.html': 'source-index.html',
+      },
     },
   },
 });
