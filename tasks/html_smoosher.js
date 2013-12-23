@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 
     if (options.minify){
       processInput = function(input){
-        return uglify.minify(input);
+        return uglify.minify(input, {fromString: true});
       };
     }
 
