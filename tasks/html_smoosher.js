@@ -13,13 +13,22 @@ module.exports = function(grunt) {
   var cheerio = require('cheerio');
   var path = require('path');
   var url = require('url');
+  var uglify = require('uglifyjs').init(grunt);
 
   grunt.registerMultiTask('smoosher', 'Turn your distribution into something pastable.', function() {
 
     var options = this.options({
       jsDir: "",
-      cssDir: ""
+      cssDir: "",
+      minify: false
     }); 
+    var processInput = function(i){return i;};
+
+    if (options.minify){
+      processInput = function(input){
+        return uglify.minify(input);
+      };
+    }
 
     this.files.forEach(function(filePair) {
       // Check that the source file exists
@@ -36,7 +45,7 @@ module.exports = function(grunt) {
         if(url.parse(style).protocol) { return; }
         var filePath = (style.substr(0,1) === "/") ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePair.src), style);
         grunt.log.writeln(('Including CSS: ').cyan + filePath);
-        $(this).replaceWith('<style>' + grunt.file.read(filePath) + '</style>');
+        $(this).replaceWith('<style>' + processInput(grunt.file.read(filePath)) + '</style>');
       });
 
       $('script').each(function () {
@@ -46,7 +55,7 @@ module.exports = function(grunt) {
         if(url.parse(script).protocol) { return; }
         var filePath = (script.substr(0,1) === "/") ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePair.src), script);
         grunt.log.writeln(('Including JS: ').cyan + filePath);
-        $(this).replaceWith('<script>' + grunt.file.read(filePath) + '</script>');
+        $(this).replaceWith('<script>' + processInput(grunt.file.read(filePath)) + '</script>');
       });
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
