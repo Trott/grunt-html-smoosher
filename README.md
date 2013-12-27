@@ -67,7 +67,7 @@ grunt.initConfig({
   smoosher: {
     all: {
       options: {
-        jsDir: "../js/",
+        jsDir: "../",
         cssDir: "/Library/documents/sharedAssets/"
       },
       files: {
@@ -83,7 +83,7 @@ If the local cwd for your uncompiled file is `/Library/documents/server/src/html
 
 `<script src="/assets/js/script.js" />` will use a local file at `/Library/documents/server/src/js/script.js`
 
-`<link href="/assets/css/styles.css" />` will use a local file at `/Library/documents/sharedAssets/css/styles.css`
+`<link href="/assets/css/styles.css" />` will use a local file at `/Library/documents/sharedAssets/assets/css/styles.css`
 
 
 ## Contributing
