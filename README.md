@@ -1,8 +1,4 @@
-{
-    jsDir: "../../js/",
-    cssDir: "../../css/",
-    minify: true
-}# grunt-html-smoosher
+# grunt-html-smoosher
 [![Build Status](https://api.travis-ci.org/motherjones/grunt-html-smoosher.png?branch=master)](https://travis-ci.org/motherjones/grunt-html-smoosher)
 [![NPM version](https://badge.fury.io/js/grunt-html-smoosher.png)](http://badge.fury.io/js/grunt-html-smoosher)
 
