@@ -83,11 +83,11 @@ grunt.initConfig({
 ```
 **Example**
 
-If the local cwd for your uncompiled file is `/Library/documents/server/src/html` then the above settings would resolve to:
+If the local cwd for your uncompiled file is `/Library/documents/server/src/html` then the above settings would resolve:
 
-`/assets/js/script.js` will use a local file at `/Library/documents/server/src/js/script.js`
+`<script src="/assets/js/script.js" />` will use a local file at `/Library/documents/server/src/js/script.js`
 
-`/assets/css/styles.css` will use a local file at `/Library/documents/sharedAssets/css/styles.css`
+`<link href="/assets/css/styles.css" />` will use a local file at `/Library/documents/sharedAssets/css/styles.css`
 
 
 ## Contributing
