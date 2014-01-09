@@ -27,6 +27,12 @@ In your project's Gruntfile, add a section named `smoosher` to the data object p
 ```js
 grunt.initConfig({
   smoosher: {
+    options: {
+      jsTags: { // optional
+        start: '<script type="text/javascript">', // default: <script>
+        end: '</script>'                          // default: </script>
+      },
+    },
     all: {
       files: {
         'dest-index.html': 'source-index.html',
@@ -38,7 +44,28 @@ grunt.initConfig({
 
 ### Options
 
-None.
+#### cssTags
+
+Defaults to 
+
+```js
+{
+  start: '<style>',
+  end: '</style>'
+}
+```
+
+#### jsTags
+
+Defaults to 
+
+```js
+{
+  start: '<script>',
+  end: '</script>'
+}
+```
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
