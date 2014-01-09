@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         if(url.parse(script).protocol) { return; }
         var filePath = (script.substr(0,1) === "/") ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePair.src), script);
         grunt.log.writeln(('Including JS: ').cyan + filePath);
-        $(this).replaceWith(options.jsTags.start + processInput(grunt.file.read(filePath)) + options.cssTags.end);
+        $(this).replaceWith(options.jsTags.start + processInput(grunt.file.read(filePath)) + options.jsTags.end);
       });
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
