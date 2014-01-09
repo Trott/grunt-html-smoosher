@@ -22,6 +22,17 @@ module.exports = function(grunt) {
       cssDir: "",
       minify: false
     }); 
+
+    options.cssTags = this.options().cssTags || {
+      start: '<style>',
+      end: '</style>'
+    };
+
+    options.jsTags = this.options().jsTags || {
+      start: '<script>',
+      end: '</script>'
+    };
+
     var processInput = function(i){return i;};
 
     if (options.minify){
@@ -45,7 +56,7 @@ module.exports = function(grunt) {
         if(url.parse(style).protocol) { return; }
         var filePath = (style.substr(0,1) === "/") ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePair.src), style);
         grunt.log.writeln(('Including CSS: ').cyan + filePath);
-        $(this).replaceWith('<style>' + processInput(grunt.file.read(filePath)) + '</style>');
+        $(this).replaceWith(options.cssTags.start + processInput(grunt.file.read(filePath)) + options.cssTags.end);
       });
 
       $('script').each(function () {
@@ -55,7 +66,7 @@ module.exports = function(grunt) {
         if(url.parse(script).protocol) { return; }
         var filePath = (script.substr(0,1) === "/") ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePair.src), script);
         grunt.log.writeln(('Including JS: ').cyan + filePath);
-        $(this).replaceWith('<script>' + processInput(grunt.file.read(filePath)) + '</script>');
+        $(this).replaceWith(options.jsTags.start + processInput(grunt.file.read(filePath)) + options.jsTags.end);
       });
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
