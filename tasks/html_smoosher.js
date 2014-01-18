@@ -42,10 +42,26 @@ module.exports = function(grunt) {
         var style = $(this).attr('href');
         if(!style) { return; }
         if(style.match(/^\/\//)) { return; }
+
+        //get attributes to keep them on the new element
+        var attributes = getAttributes(this[0]);
+        if (attributes.href){
+          //don't want to re-include the href
+          delete attributes.href;
+        }
+        if (attributes.rel){
+          //don't want to rel
+          delete attributes.rel;
+        }
+        
         if(url.parse(style).protocol) { return; }
         var filePath = (style.substr(0,1) === "/") ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePair.src), style);
-        grunt.log.writeln(('Including CSS: ').cyan + filePath);
-        $(this).replaceWith('<style>' + processInput(grunt.file.read(filePath)) + '</style>');
+        grunt.log.writeln(('Including CSS: ').green + filePath);
+
+        //create and replace link with style tag
+        var $newStyleTag = $("<style>");
+        $newStyleTag.attr(attributes).html(processInput(grunt.file.read(filePath)));
+        $(this).replaceWith($newStyleTag);
       });
 
       $('script').each(function () {
@@ -53,15 +69,35 @@ module.exports = function(grunt) {
         if(!script) { return; }
         if(script.match(/^\/\//)) { return; }
         if(url.parse(script).protocol) { return; }
+
+        //get attributes to keep them on the new element
+        var attributes = getAttributes(this[0]);
+        if (attributes.src){
+          delete attributes.src;
+        }
+
         var filePath = (script.substr(0,1) === "/") ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePair.src), script);
         grunt.log.writeln(('Including JS: ').cyan + filePath);
-        $(this).replaceWith('<script>' + processInput(grunt.file.read(filePath)) + '</script>');
+
+        //create and replace script with new scipt tag
+        var $newScriptTag = $("<script>");
+        $newScriptTag.attr(attributes).html(processInput(grunt.file.read(filePath)));
+        $(this).replaceWith($newScriptTag);
       });
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
       grunt.log.writeln(('Created ').green + path.resolve(filePair.dest));
     });
 
+    function getAttributes(el) {
+        var attributes = {};
+        for (var index in el.attribs) {
+            var attr = el.attribs[index];
+            grunt.log.writeln(("attr: ").green + index + ":") + attr);
+            attributes[ index ] = attr;
+        }; 
+        return attributes;
+    };
   });
 
 };
