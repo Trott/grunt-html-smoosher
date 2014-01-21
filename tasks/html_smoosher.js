@@ -93,11 +93,10 @@ module.exports = function(grunt) {
         var attributes = {};
         for (var index in el.attribs) {
             var attr = el.attribs[index];
-            grunt.log.writeln(("attr: ").green + index + ":") + attr);
+            grunt.log.writeln(("attr: ").green + index + ":" + attr);
             attributes[ index ] = attr;
-        }; 
+        }
         return attributes;
-    };
+    }
   });
-
 };
