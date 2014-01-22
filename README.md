@@ -38,7 +38,53 @@ grunt.initConfig({
 
 ### Options
 
-None.
+#### Script Minification
+
+Minify scripts with UglifyJS.
+
+```js
+
+grunt.initConfig({
+  smoosher: {
+    all: {
+      options: {
+        minify: true
+      },
+      files: {
+        'dest-index.html': 'source-index.html',
+      },
+    },
+  },
+});
+```
+
+#### Path config
+
+When you have absolute paths for your external assets, it helps to add the local address of your asset files; relative to uncompiled HTML file.
+
+```js
+grunt.initConfig({
+  smoosher: {
+    all: {
+      options: {
+        jsDir: "../",
+        cssDir: "/Library/documents/sharedAssets/"
+      },
+      files: {
+        'dest-index.html': 'source-index.html',
+      },
+    },
+  },
+});
+```
+**Example**
+
+If the local cwd for your uncompiled file is `/Library/documents/server/src/html` then the above settings would resolve:
+
+`<script src="/assets/js/script.js" />` will use a local file at `/Library/documents/server/src/js/script.js`
+
+`<link href="/assets/css/styles.css" />` will use a local file at `/Library/documents/sharedAssets/assets/css/styles.css`
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
