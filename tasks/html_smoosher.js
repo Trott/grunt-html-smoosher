@@ -85,6 +85,14 @@ module.exports = function(grunt) {
         $(this).replaceWith($newScriptTag);
       });
 
+      $('img').each(function () {
+        var src = $(this).attr('src');
+        if (!src) { return; }
+        if (src.match(/^\/\//)) { return; }
+        if (url.parse(src).protocol) { return; }
+        $(this).attr('src', 'data:image/' + src.substr(src.lastIndexOf('.')+1) + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
+      });
+
       grunt.file.write(path.resolve(filePair.dest), $.html());
       grunt.log.writeln(('Created ').green + path.resolve(filePair.dest));
     });
