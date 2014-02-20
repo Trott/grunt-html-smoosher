@@ -22,6 +22,17 @@ module.exports = function(grunt) {
       cssDir: "",
       minify: false
     }); 
+
+    options.cssTags = this.options().cssTags || {
+      start: '<style>',
+      end: '</style>'
+    };
+
+    options.jsTags = this.options().jsTags || {
+      start: '<script>',
+      end: '</script>'
+    };
+
     var processInput = function(i){return i;};
 
     if (options.minify){
@@ -56,12 +67,8 @@ module.exports = function(grunt) {
         
         if(url.parse(style).protocol) { return; }
         var filePath = (style.substr(0,1) === "/") ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePair.src), style);
-        grunt.log.writeln(('Including CSS: ').green + filePath);
-
-        //create and replace link with style tag
-        var $newStyleTag = $("<style>");
-        $newStyleTag.attr(attributes).html(processInput(grunt.file.read(filePath)));
-        $(this).replaceWith($newStyleTag);
+        grunt.log.writeln(('Including CSS: ').cyan + filePath);
+        $(this).replaceWith(options.cssTags.start + processInput(grunt.file.read(filePath)) + options.cssTags.end);
       });
 
       $('script').each(function () {
@@ -80,9 +87,7 @@ module.exports = function(grunt) {
         grunt.log.writeln(('Including JS: ').cyan + filePath);
 
         //create and replace script with new scipt tag
-        var $newScriptTag = $("<script>");
-        $newScriptTag.attr(attributes).html(processInput(grunt.file.read(filePath)));
-        $(this).replaceWith($newScriptTag);
+        $(this).replaceWith(options.jsTags.start + processInput(grunt.file.read(filePath)) + options.jsTags.end);
       });
 
       $('img').each(function () {
