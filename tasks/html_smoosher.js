@@ -92,15 +92,12 @@ module.exports = function(grunt) {
 
       $('img').each(function () {
         var src = $(this).attr('src');
+        var extension = src.substr(src.lastIndexOf('.')+1);
         if (!src) { return; }
         if (src.match(/^\/\//)) { return; }
         if (url.parse(src).protocol) { return; }
-        var imgStr = src.substr(src.lastIndexOf('.')+1);
-        if (imgStr === 'svg') {
-          imgStr += '+xml';
-        }
-        grunt.log.writeln(imgStr);
-        $(this).attr('src', 'data:image/' + imgStr + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
+        if (extension === 'svg') { extension += '+xml'; }
+        $(this).attr('src', 'data:image/' + extension + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
       });
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
