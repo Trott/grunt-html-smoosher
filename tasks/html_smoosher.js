@@ -99,7 +99,7 @@ module.exports = function(grunt) {
         if (imgStr === 'svg') {
           imgStr += '+xml';
         }
-        grunt.log(imgStr);
+        grunt.log.writeln(imgStr);
         $(this).attr('src', 'data:image/' + imgStr + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
       });
 
