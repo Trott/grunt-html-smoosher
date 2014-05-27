@@ -95,7 +95,12 @@ module.exports = function(grunt) {
         if (!src) { return; }
         if (src.match(/^\/\//)) { return; }
         if (url.parse(src).protocol) { return; }
-        $(this).attr('src', 'data:image/' + src.substr(src.lastIndexOf('.')+1) + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
+        var imgStr = src.substr(src.lastIndexOf('.')+1);
+        if (imgStr === 'svg') {
+          imgStr += '+xml';
+        }
+        grunt.log(imgStr);
+        $(this).attr('src', 'data:image/' + imgStr + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
       });
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
