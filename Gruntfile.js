@@ -35,6 +35,14 @@ module.exports = function(grunt) {
           'tmp/default_options': 'test/fixtures/index.html',
         },
       },
+      min_css: {
+        options: {
+          minify: true
+        },
+        files: {
+          'tmp/min_css': 'test/fixtures/index.html',
+        },
+      },
     },
 
     // Unit tests.

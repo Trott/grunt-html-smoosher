@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "cheerio": "~0.10.8",
-    "uglifyjs": "~2.3.6"
+    "uglifyjs": "~2.3.6",
+    "uglifycss": "0.0.8"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.4.3",

@@ -36,4 +36,13 @@ exports.html_smoosher = {
 
     test.done();
   },
+  min_css: function(test){
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/min_css');
+    var expected = grunt.file.read('test/expected/min_css');
+    test.equal(actual, expected, 'tests minified css');
+    
+    test.done();
+  }
 };

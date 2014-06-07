@@ -13,7 +13,8 @@ module.exports = function(grunt) {
   var cheerio = require('cheerio');
   var path = require('path');
   var url = require('url');
-  var uglify = require('uglifyjs');
+  var uglifyjs = require('uglifyjs');
+  var uglifycss = require('uglifycss');
 
   grunt.registerMultiTask('smoosher', 'Turn your distribution into something pastable.', function() {
 
@@ -22,11 +23,15 @@ module.exports = function(grunt) {
       cssDir: "",
       minify: false
     }); 
-    var processInput = function(i){return i;};
+    var uglifyJS = function(i){return i;};
+    var minCSS = function(i){return i;};
 
     if (options.minify){
-      processInput = function(input){
-        return uglify.minify(input, {fromString: true}).code;
+      uglifyJS = function(input){
+        return uglifyjs.minify(input, {fromString: true}).code;
+      };
+      minCSS = function(input){
+        return uglifycss.processString(input);
       };
     }
 
@@ -58,9 +63,35 @@ module.exports = function(grunt) {
         var filePath = (style.substr(0,1) === "/") ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePair.src), style);
         grunt.log.writeln(('Including CSS: ').green + filePath);
 
+        var fileContents = grunt.file.read(filePath);
+
+        // TODO: alter paths of relatively located assets
+        // find all relatively located assets
+
+        //extract all the URL strings
+        var urls = fileContents.match(/url\((.*?)\);/ig);
+        urls = urls.map(function(url){
+          url = url.replace("url(","").replace(");", "");
+
+          var firstChar = url.substr(0,1);
+          var isQuoted = firstChar.match(/[\'\"]/);
+          var url = (isQuoted) ? url.substr(1,url.length-2) : url;
+          return url;
+        });
+
+        var newUrls = urls.map(function(urlString, i){
+          urlString = path.resolve(path.dirname(filePath), urlString);
+          return path.relative(path.dirname(filePair.src), urlString);
+        });
+
+        urls.forEach(function(url, i){
+          fileContents = fileContents.replace(url, newUrls[i]);
+        });
+
+
         //create and replace link with style tag
         var $newStyleTag = $("<style>");
-        $newStyleTag.attr(attributes).html(processInput(grunt.file.read(filePath)));
+        $newStyleTag.attr(attributes).html(minCSS(fileContents));
         $(this).replaceWith($newStyleTag);
       });
 
@@ -81,7 +112,7 @@ module.exports = function(grunt) {
 
         //create and replace script with new scipt tag
         var $newScriptTag = $("<script>");
-        $newScriptTag.attr(attributes).html(processInput(grunt.file.read(filePath)));
+        $newScriptTag.attr(attributes).html(uglifyJS(grunt.file.read(filePath)));
         $(this).replaceWith($newScriptTag);
       });
 
