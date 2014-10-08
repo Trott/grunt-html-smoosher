@@ -10,7 +10,7 @@
   </head>
   <body>
     <p>Hello world! This is a test.</p>
-
+    <img src="images/img.jpg" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>alert('This should not be replaced.');</script>

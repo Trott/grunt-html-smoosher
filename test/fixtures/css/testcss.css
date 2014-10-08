@@ -6,3 +6,7 @@
 h1 {
   color: red;
 }
+
+h2 {
+	background-image: url("../images/img.jpg");
+}

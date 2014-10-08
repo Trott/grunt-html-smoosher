@@ -22,11 +22,11 @@ module.exports = function(grunt) {
       jsDir: "",
       cssDir: "",
       minify: false,
-      includeImages: false
+      includeImages: false,
+      includeCSSImages: false
     }); 
     var uglifyJS = function(i){return i;};
     var minCSS = function(i){return i;};
-    var processInput = function(i){return i;};
 
     if (options.minify){
       uglifyJS = function(input){
@@ -113,7 +113,9 @@ module.exports = function(grunt) {
         grunt.log.writeln(('Including JS: ').cyan + filePath);
 
         //create and replace script with new scipt tag
-        $(this).replaceWith(options.jsTags.start + processInput(grunt.file.read(filePath)) + options.jsTags.end);
+        var $newScriptTag = $("<script>");
+        $newScriptTag.attr(attributes).html(uglifyJS(grunt.file.read(filePath)));
+        $(this).replaceWith($newScriptTag);
       });
 
       if (options.includeImages){ 
