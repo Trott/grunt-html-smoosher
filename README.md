@@ -27,6 +27,12 @@ In your project's Gruntfile, add a section named `smoosher` to the data object p
 ```js
 grunt.initConfig({
   smoosher: {
+    options: {
+      jsTags: { // optional
+        start: '<script type="text/javascript">', // default: <script>
+        end: '</script>'                          // default: </script>
+      },
+    },
     all: {
       files: {
         'dest-index.html': 'source-index.html',
@@ -84,6 +90,28 @@ If the local cwd for your uncompiled file is `/Library/documents/server/src/html
 `<script src="/assets/js/script.js" />` will use a local file at `/Library/documents/server/src/js/script.js`
 
 `<link href="/assets/css/styles.css" />` will use a local file at `/Library/documents/sharedAssets/assets/css/styles.css`
+
+#### cssTags
+
+Defaults to 
+
+```js
+{
+  start: '<style>',
+  end: '</style>'
+}
+```
+
+#### jsTags
+
+Defaults to 
+
+```js
+{
+  start: '<script>',
+  end: '</script>'
+}
+```
 
 
 ## Contributing

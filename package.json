@@ -1,7 +1,7 @@
 {
   "name": "grunt-html-smoosher",
   "description": "A grunt task which takes a html file, finds all the css and js links, and outputs a version with all the css and js written inline for ease of pasting into a cms",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "homepage": "https://github.com/motherjones/grunt-html-smoosher",
   "author": {
     "name": "Ben Breedlove",

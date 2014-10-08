@@ -21,10 +21,12 @@ module.exports = function(grunt) {
     var options = this.options({
       jsDir: "",
       cssDir: "",
-      minify: false
+      minify: false,
+      includeImages: false
     }); 
     var uglifyJS = function(i){return i;};
     var minCSS = function(i){return i;};
+    var processInput = function(i){return i;};
 
     if (options.minify){
       uglifyJS = function(input){
@@ -111,10 +113,18 @@ module.exports = function(grunt) {
         grunt.log.writeln(('Including JS: ').cyan + filePath);
 
         //create and replace script with new scipt tag
-        var $newScriptTag = $("<script>");
-        $newScriptTag.attr(attributes).html(uglifyJS(grunt.file.read(filePath)));
-        $(this).replaceWith($newScriptTag);
+        $(this).replaceWith(options.jsTags.start + processInput(grunt.file.read(filePath)) + options.jsTags.end);
       });
+
+      if (options.includeImages){ 
+        $('img').each(function () {
+          var src = $(this).attr('src');
+          if (!src) { return; }
+          if (src.match(/^\/\//)) { return; }
+          if (url.parse(src).protocol) { return; }
+          $(this).attr('src', 'data:image/' + src.substr(src.lastIndexOf('.')+1) + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
+        });
+      }
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
       grunt.log.writeln(('Created ').green + path.resolve(filePair.dest));
