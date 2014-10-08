@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 
         var fileContents = grunt.file.read(filePath);
 
-        // TODO: alter paths of relatively located assets
+        // alter paths of relatively located assets
         // find all relatively located assets
 
         //extract all the URL strings
