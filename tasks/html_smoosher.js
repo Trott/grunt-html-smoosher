@@ -82,8 +82,15 @@ module.exports = function(grunt) {
         });
 
         var newUrls = urls.map(function(urlString, i){
+          if (urlString.match(/^\/\//)) { return urlString; }
+
           urlString = path.resolve(path.dirname(filePath), urlString);
-          return path.relative(path.dirname(filePair.src), urlString);
+          var ext = path.extname(urlString);
+          if (options.includeCSSImages && (ext == ".jpg" || ext == ".jpeg" || ext == ".png" || ext == ".gif" || ext == ".webp")){
+            return 'data:image/' + ext.slice(1) + ';base64,' + new Buffer(grunt.file.read(urlString, { encoding: null })).toString('base64')
+          } else {
+            return path.relative(path.dirname(filePair.src), urlString);
+          }
         });
 
         urls.forEach(function(url, i){

@@ -39,7 +39,7 @@ exports.html_smoosher = {
   minify: function(test){
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/min_css');
+    var actual = grunt.file.read('tmp/minify');
     var expected = grunt.file.read('test/expected/minify');
     test.equal(actual, expected, 'tests minified css');
     
@@ -48,7 +48,7 @@ exports.html_smoosher = {
   include_css_images: function(test){
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/min_css');
+    var actual = grunt.file.read('tmp/include_css_images');
     var expected = grunt.file.read('test/expected/include_css_images');
     test.equal(actual, expected, 'tests inline css images');
     
@@ -57,7 +57,7 @@ exports.html_smoosher = {
   include_images: function(test){
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/min_css');
+    var actual = grunt.file.read('tmp/include_images');
     var expected = grunt.file.read('test/expected/include_images');
     test.equal(actual, expected, 'tests inline images');
     

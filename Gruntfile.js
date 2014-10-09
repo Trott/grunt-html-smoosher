@@ -35,12 +35,28 @@ module.exports = function(grunt) {
           'tmp/default_options': 'test/fixtures/index.html',
         },
       },
-      min_css: {
+      minify: {
         options: {
           minify: true
         },
         files: {
-          'tmp/min_css': 'test/fixtures/index.html',
+          'tmp/minify': 'test/fixtures/index.html',
+        },
+      },
+      include_css_images: {
+        options: {
+          includeCSSImages: true
+        },
+        files: {
+          'tmp/include_css_images': 'test/fixtures/index.html',
+        },
+      },
+      include_images: {
+        options: {
+          includeImages: true
+        },
+        files: {
+          'tmp/include_images': 'test/fixtures/index.html',
         },
       },
     },
