@@ -46,7 +46,7 @@ grunt.initConfig({
 
 #### Script Minification
 
-Minify scripts with UglifyJS.
+Minify scripts and CSS.
 
 ```js
 
@@ -91,26 +91,42 @@ If the local cwd for your uncompiled file is `/Library/documents/server/src/html
 
 `<link href="/assets/css/styles.css" />` will use a local file at `/Library/documents/sharedAssets/assets/css/styles.css`
 
-#### cssTags
+#### Script Minification
 
-Defaults to 
+Include Base64 encoded versions of images referenced from `<img>` tags, inline. Can be used with `includeCSSImages`.
 
 ```js
-{
-  start: '<style>',
-  end: '</style>'
-}
+
+grunt.initConfig({
+  smoosher: {
+    all: {
+      options: {
+        includeImages: true
+      },
+      files: {
+        'dest-index.html': 'source-index.html',
+      },
+    },
+  },
+});
 ```
 
-#### jsTags
-
-Defaults to 
+Include Base64 encoded versions of images referenced in the CSS, inline. Can be used with `includeImages`.
 
 ```js
-{
-  start: '<script>',
-  end: '</script>'
-}
+
+grunt.initConfig({
+  smoosher: {
+    all: {
+      options: {
+        includeCSSImages: true
+      },
+      files: {
+        'dest-index.html': 'source-index.html',
+      },
+    },
+  },
+});
 ```
 
 
