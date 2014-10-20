@@ -91,7 +91,7 @@ If the local cwd for your uncompiled file is `/Library/documents/server/src/html
 
 `<link href="/assets/css/styles.css" />` will use a local file at `/Library/documents/sharedAssets/assets/css/styles.css`
 
-#### Script Minification
+#### Base64 Encode & Include Images
 
 Include Base64 encoded versions of images referenced from `<img>` tags, inline. Can be used with `includeCSSImages`.
 
