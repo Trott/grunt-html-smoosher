@@ -13,7 +13,7 @@ module.exports = function(grunt) {
   var cheerio = require('cheerio');
   var path = require('path');
   var url = require('url');
-  var uglify = require('uglifyjs');
+  var uglify = require('uglify-js');
 
   grunt.registerMultiTask('smoosher', 'Turn your distribution into something pastable.', function() {
 
