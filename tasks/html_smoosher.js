@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       // Check that the source file exists
       if(filePair.src.length === 0) { return; }
 
-      const filePairSrc = filePair.src[0];
+      var filePairSrc = filePair.src[0];
 
       var $ = cheerio.load(grunt.file.read(filePairSrc));
 
