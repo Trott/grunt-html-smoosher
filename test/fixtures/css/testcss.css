@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'FontAwesome';
-  src: url('../fonts/fontawesome-webfont.eot?v=4.0.3');
+  src: url('https://example.com/fonts/fontawesome-webfont.eot?v=4.0.3');
 }
 
 h1 {

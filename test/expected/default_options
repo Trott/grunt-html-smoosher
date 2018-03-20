@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/ui-lightness/jquery-ui.css">
     <style>@font-face {
   font-family: 'FontAwesome';
-  src: url('fonts/fontawesome-webfont.eot?v=4.0.3');
+  src: url('https://example.com/fonts/fontawesome-webfont.eot?v=4.0.3');
 }
 
 h1 {

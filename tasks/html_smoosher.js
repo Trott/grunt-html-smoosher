@@ -21,7 +21,7 @@ module.exports = function(grunt) {
       jsDir: "",
       cssDir: "",
       minify: false
-    }); 
+    });
 
     options.cssTags = this.options().cssTags || {
       start: '<style>',
@@ -45,9 +45,11 @@ module.exports = function(grunt) {
       // Check that the source file exists
       if(filePair.src.length === 0) { return; }
 
-      var $ = cheerio.load(grunt.file.read(filePair.src));
+      const filePairSrc = filePair.src[0];
 
-      grunt.log.writeln('Reading: ' + path.resolve(filePair.src.toString()));
+      var $ = cheerio.load(grunt.file.read(filePairSrc));
+
+      grunt.log.writeln('Reading: ' + path.resolve(filePairSrc));
 
       $('link[rel="stylesheet"]').each(function () {
         var style = $(this).attr('href');
@@ -64,9 +66,9 @@ module.exports = function(grunt) {
           //don't want to rel
           delete attributes.rel;
         }
-        
+
         if(url.parse(style).protocol) { return; }
-        var filePath = (style.substr(0,1) === "/") ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePair.src), style);
+        var filePath = (style.substr(0,1) === "/") ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePairSrc), style);
         grunt.log.writeln(('Including CSS: ').cyan + filePath);
         $(this).replaceWith(options.cssTags.start + processInput(grunt.file.read(filePath)) + options.cssTags.end);
       });
@@ -83,7 +85,7 @@ module.exports = function(grunt) {
           delete attributes.src;
         }
 
-        var filePath = (script.substr(0,1) === "/") ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePair.src), script);
+        var filePath = (script.substr(0,1) === "/") ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePairSrc), script);
         grunt.log.writeln(('Including JS: ').cyan + filePath);
 
         //create and replace script with new scipt tag
@@ -95,7 +97,7 @@ module.exports = function(grunt) {
         if (!src) { return; }
         if (src.match(/^\/\//)) { return; }
         if (url.parse(src).protocol) { return; }
-        $(this).attr('src', 'data:image/' + src.substr(src.lastIndexOf('.')+1) + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePair.src), src), { encoding: null })).toString('base64'));
+        $(this).attr('src', 'data:image/' + src.substr(src.lastIndexOf('.')+1) + ';base64,' + new Buffer(grunt.file.read(path.join(path.dirname(filePairSrc), src), { encoding: null })).toString('base64'));
       });
 
       grunt.file.write(path.resolve(filePair.dest), $.html());
