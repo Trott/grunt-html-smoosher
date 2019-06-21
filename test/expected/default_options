@@ -24,7 +24,7 @@ h1 {
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>alert('This should not be replaced.');</script>
-    <script>alert('lol i am test js, really');
+    <script>window.alert('lol i am test js, really');
 </script>
   </body>
 </html>

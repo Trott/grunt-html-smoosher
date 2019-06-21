@@ -8,45 +8,34 @@
 
 'use strict';
 
-module.exports = function(grunt) {
-
+module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
-    jshint: {
-      all: [
-        'Gruntfile.js',
-        'tasks/*.js',
-        'test/*.js',
-      ],
-      options: {
-        jshintrc: '.jshintrc',
-      },
-    },
-
     // Before generating any new files, remove any previously-created files.
     clean: {
-      tests: ['tmp'],
+      tests: ['tmp']
     },
 
     // Configuration to be run (and then tested).
     smoosher: {
       default_options: {
         files: {
-          'tmp/default_options': 'test/fixtures/index.html',
-        },
-      },
+          'tmp/default_options': 'test/fixtures/index.html'
+        }
+      }
     },
 
     // Unit tests.
     run: {
+      lint: {
+        cmd: 'npx',
+        args: [ 'semistandard' ]
+      },
       test: {
         cmd: 'node',
-        args: [
-          'test/html_smoosher_test.js'
-        ]
+        args: [ 'test/html_smoosher_test.js' ]
       }
-    },
-
+    }
   });
 
   // Actually load this plugin's task(s).
@@ -59,9 +48,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['jshint', 'clean', 'smoosher', 'run']);
+  grunt.registerTask('test', ['clean', 'smoosher', 'run']);
 
-  // By default, lint and run all tests.
   grunt.registerTask('default', ['test']);
-
 };

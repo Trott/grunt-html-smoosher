@@ -1,1 +1,1 @@
-alert('lol i am test js, really');
+window.alert('lol i am test js, really');
