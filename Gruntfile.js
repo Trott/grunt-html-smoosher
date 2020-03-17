@@ -29,11 +29,11 @@ module.exports = function (grunt) {
     run: {
       lint: {
         cmd: 'npx',
-        args: [ 'semistandard' ]
+        args: ['semistandard']
       },
       test: {
         cmd: 'node',
-        args: [ 'test/html_smoosher_test.js' ]
+        args: ['test/html_smoosher_test.js']
       }
     }
   });

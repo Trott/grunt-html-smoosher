@@ -11,8 +11,9 @@ module.exports = function (grunt) {
 
   var cheerio = require('cheerio');
   var path = require('path');
-  var url = require('url');
   var uglify = require('uglify-js');
+
+  const hasScheme = /^[a-z0-9]+:\/\//;
 
   grunt.registerMultiTask('smoosher', 'Turn your distribution into something pastable.', function () {
     var options = this.options({
@@ -65,7 +66,7 @@ module.exports = function (grunt) {
           delete attributes.rel;
         }
 
-        if (url.parse(style).protocol) { return; }
+        if (hasScheme.test(style)) { return; }
         var filePath = (style.substr(0, 1) === '/') ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePairSrc), style);
         grunt.log.writeln(('Including CSS: ').cyan + filePath);
         $(this).replaceWith(options.cssTags.start + processInput(grunt.file.read(filePath)) + options.cssTags.end);
@@ -75,7 +76,7 @@ module.exports = function (grunt) {
         var script = $(this).attr('src');
         if (!script) { return; }
         if (script.match(/^\/\//)) { return; }
-        if (url.parse(script).protocol) { return; }
+        if (hasScheme.test(script)) { return; }
 
         // get attributes to keep them on the new element
         var attributes = getAttributes(this[0]);
@@ -94,7 +95,7 @@ module.exports = function (grunt) {
         var src = $(this).attr('src');
         if (!src) { return; }
         if (src.match(/^\/\//)) { return; }
-        if (url.parse(src).protocol) { return; }
+        if (hasScheme.test(src)) { return; }
         $(this).attr('src', 'data:image/' + src.substr(src.lastIndexOf('.') + 1) + ';base64,' + Buffer.from(grunt.file.read(path.join(path.dirname(filePairSrc), src), { encoding: null })).toString('base64'));
       });
 
@@ -107,7 +108,7 @@ module.exports = function (grunt) {
       for (var index in el.attribs) {
         var attr = el.attribs[index];
         grunt.log.writeln(('attr: ').green + index + ':' + attr);
-        attributes[ index ] = attr;
+        attributes[index] = attr;
       }
       return attributes;
     }
