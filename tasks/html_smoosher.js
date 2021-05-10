@@ -56,7 +56,7 @@ module.exports = function (grunt) {
         if (style.match(/^\/\//)) { return; }
 
         // get attributes to keep them on the new element
-        var attributes = getAttributes(this[0]);
+        var attributes = getAttributes(this);
         if (attributes.href) {
           // don't want to re-include the href
           delete attributes.href;
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
         if (hasScheme.test(script)) { return; }
 
         // get attributes to keep them on the new element
-        var attributes = getAttributes(this[0]);
+        var attributes = getAttributes(this);
         if (attributes.src) {
           delete attributes.src;
         }
