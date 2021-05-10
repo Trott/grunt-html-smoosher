@@ -1,5 +1,4 @@
 # grunt-html-smoosher
-[![Build Status](https://api.travis-ci.org/Trott/grunt-html-smoosher.png?branch=master)](https://travis-ci.org/motherjones/grunt-html-smoosher)
 [![NPM version](https://badge.fury.io/js/grunt-html-smoosher.png)](http://badge.fury.io/js/grunt-html-smoosher)
 
 > A grunt task which takes a html file, finds all the css and js links, and outputs a version with all the css and js written inline for ease of pasting into a cms
