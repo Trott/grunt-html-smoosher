@@ -9,14 +9,14 @@
 module.exports = function (grunt) {
   'use strict';
 
-  var cheerio = require('cheerio');
-  var path = require('path');
-  var uglify = require('uglify-js');
+  const cheerio = require('cheerio');
+  const path = require('path');
+  const uglify = require('uglify-js');
 
   const hasScheme = /^[a-z0-9]+:\/\//;
 
   grunt.registerMultiTask('smoosher', 'Turn your distribution into something pastable.', function () {
-    var options = this.options({
+    const options = this.options({
       jsDir: '',
       cssDir: '',
       minify: false
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
       end: '</script>'
     };
 
-    var processInput = function (i) { return i; };
+    let processInput = function (i) { return i; };
 
     if (options.minify) {
       processInput = function (input) {
@@ -44,19 +44,19 @@ module.exports = function (grunt) {
       // Check that the source file exists
       if (filePair.src.length === 0) { return; }
 
-      var filePairSrc = filePair.src[0];
+      const filePairSrc = filePair.src[0];
 
-      var $ = cheerio.load(grunt.file.read(filePairSrc));
+      const $ = cheerio.load(grunt.file.read(filePairSrc));
 
       grunt.log.writeln('Reading: ' + path.resolve(filePairSrc));
 
       $('link[rel="stylesheet"]').each(function () {
-        var style = $(this).attr('href');
+        const style = $(this).attr('href');
         if (!style) { return; }
         if (style.match(/^\/\//)) { return; }
 
         // get attributes to keep them on the new element
-        var attributes = getAttributes(this);
+        const attributes = getAttributes(this);
         if (attributes.href) {
           // don't want to re-include the href
           delete attributes.href;
@@ -67,24 +67,24 @@ module.exports = function (grunt) {
         }
 
         if (hasScheme.test(style)) { return; }
-        var filePath = (style.substr(0, 1) === '/') ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePairSrc), style);
+        const filePath = (style.substr(0, 1) === '/') ? path.resolve(options.cssDir, style.substr(1)) : path.join(path.dirname(filePairSrc), style);
         grunt.log.writeln(('Including CSS: ').cyan + filePath);
         $(this).replaceWith(options.cssTags.start + processInput(grunt.file.read(filePath)) + options.cssTags.end);
       });
 
       $('script').each(function () {
-        var script = $(this).attr('src');
+        const script = $(this).attr('src');
         if (!script) { return; }
         if (script.match(/^\/\//)) { return; }
         if (hasScheme.test(script)) { return; }
 
         // get attributes to keep them on the new element
-        var attributes = getAttributes(this);
+        const attributes = getAttributes(this);
         if (attributes.src) {
           delete attributes.src;
         }
 
-        var filePath = (script.substr(0, 1) === '/') ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePairSrc), script);
+        const filePath = (script.substr(0, 1) === '/') ? path.resolve(options.jsDir, script.substr(1)) : path.join(path.dirname(filePairSrc), script);
         grunt.log.writeln(('Including JS: ').cyan + filePath);
 
         // create and replace script with new scipt tag
@@ -92,7 +92,7 @@ module.exports = function (grunt) {
       });
 
       $('img').each(function () {
-        var src = $(this).attr('src');
+        const src = $(this).attr('src');
         if (!src) { return; }
         if (src.match(/^\/\//)) { return; }
         if (hasScheme.test(src)) { return; }
@@ -104,9 +104,9 @@ module.exports = function (grunt) {
     });
 
     function getAttributes (el) {
-      var attributes = {};
-      for (var index in el.attribs) {
-        var attr = el.attribs[index];
+      const attributes = {};
+      for (const index in el.attribs) {
+        const attr = el.attribs[index];
         grunt.log.writeln(('attr: ').green + index + ':' + attr);
         attributes[index] = attr;
       }
