@@ -29,7 +29,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.9",
+    "cheerio": "^1.0.0-rc.10",
     "uglify-js": "^3.3.16"
   },
   "devDependencies": {
