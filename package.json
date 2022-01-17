@@ -29,16 +29,16 @@
     "test": "grunt test"
   },
   "dependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "cheerio": "^1.0.0-rc.10",
+    "semantic-release": "^19.0.0-beta.1",
     "uglify-js": "^3.3.16"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
     "grunt": "^1.4.1",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-run": "^0.8.1",
-    "semantic-release": "^17.4.4",
     "semistandard": "^16.0.1"
   },
   "keywords": [
