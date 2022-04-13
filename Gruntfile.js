@@ -11,10 +11,6 @@
 module.exports = function (grunt) {
   // Project configuration.
   grunt.initConfig({
-    // Before generating any new files, remove any previously-created files.
-    clean: {
-      tests: ['tmp']
-    },
 
     // Configuration to be run (and then tested).
     smoosher: {
@@ -41,9 +37,14 @@ module.exports = function (grunt) {
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-clean');
+  // This plugin provides a necessary task.
   grunt.loadNpmTasks('grunt-run');
+
+  grunt.registerTask('clean', 'Clean tmp directory', function () {
+    if (grunt.file.isDir('./tmp')) {
+      grunt.file.delete('./tmp');
+    }
+  });
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
