@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/Trott/grunt-html-smoosher/compare/v3.0.0...v3.0.1) (2022-05-25)
+
+
+### Bug Fixes
+
+* remove grunt-contrib-clean ([#59](https://github.com/Trott/grunt-html-smoosher/issues/59)) ([a95f1b7](https://github.com/Trott/grunt-html-smoosher/commit/a95f1b7956fcb7a020a414fda0e1aae49abea6eb))
+
 # [3.0.0](https://github.com/Trott/grunt-html-smoosher/compare/v2.0.1...v3.0.0) (2021-05-10)
 
 
